@@ -1,14 +1,16 @@
-function Pipe() {
-  this.top = random(height-100);
-  this.bottom = this.top + 100;
-  //this.bottom = random(height/2);
-  this.x = width;
-  this.w = 20;
-  this.speed = 1;
+class Pipe {
+  constructor() {
+    this.spacing = 150;
+    this.top = random(height-this.spacing);
+    this.bottom = this.top + this.spacing;
+    this.x = width;
+    this.w = 75;
+    this.speed = 1;
 
-  this.highlight = false;
+    this.highlight = false;
+  }
 
-  this.hits = function(bird) {
+  hits(bird) {
     if (bird.x >this.x && bird.x < this.x + this.w) {
       if(bird.y < this.top || bird.y > this.bottom) {
         this.highlight = true;
@@ -19,15 +21,14 @@ function Pipe() {
     return false;
   }
 
-  this.calcScore = function() {
+  calcScore() {
     if (bird.x === (this.x + this.w)) {
-      //console.log(bird.x, this.x + this.w);
       return true;
     }
     return false;
   }
 
-  this.show = function() {
+  show() {
     fill(255);
     if(this.highlight) {
       fill(255, 0, 0);
@@ -36,11 +37,11 @@ function Pipe() {
     rect(this.x, this.bottom, this.w, height);
   }
 
-  this.update = function() {
-    this.x -=this.speed
+  update() {
+    this.x -= this.speed;
   }
 
-  this.offscreen = function() {
+  pipe_offscreen() {
     if (this.x<-this.w) {
       return true;
     } else {
